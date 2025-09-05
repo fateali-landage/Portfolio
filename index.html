@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fatheali Landage | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #2d3436; --secondary: #0984e3;
+      --accent: #00b894; --text: #2d3436;
+      --background: #ffffff; --section-bg: #f5f6fa;
+    }
+    body { font-family: 'Roboto', sans-serif; color: var(--text); line-height: 1.6; }
+    nav { position: fixed; top: 0; width: 100%; background: var(--background);
+      padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    .nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--primary); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-family: 'Lato', sans-serif; text-decoration: none; color: var(--text); font-weight: 500; transition: color 0.3s ease; }
+    .nav-links a:hover { color: var(--secondary); }
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    #hero { min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--background) 0%, var(--section-bg) 100%); }
+    .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-text h1 { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary); }
+    .hero-text p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+    .btn { display: inline-block; padding: 1rem 2rem; background: var(--secondary); color: white; text-decoration: none; border-radius: 5px; font-family: 'Lato', sans-serif; font-weight: 500; transition: transform 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); }
+
+    /* Updated profile image */
+    .profile-img {
+      width: 280px;        /* smaller width */
+      height: auto;        /* keeps natural aspect ratio */
+      border-radius: 50%;  /* circular look */
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: block;
+      margin: 0 auto;
+    }
+
+    #about { background: var(--section-bg); }
+    .about-content { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: 2rem; margin-bottom: 2rem; color: var(--primary); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 1rem; margin-top: 2rem; }
+    .skill-card { background: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+    .skill-card:hover { transform: translateY(-5px); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; }
+    .project-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+    .project-card:hover { transform: translateY(-5px); }
+    .project-info { padding: 1.5rem; }
+    footer { background: var(--primary); color: white; padding: 2rem; text-align: center; }
+    @media (max-width:768px){ .hero-content,.about-content{grid-template-columns:1fr;} .hero-text h1{font-size:2.5rem;} .nav-links{display:none;} }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <div class="logo">Fatheali Portfolio</div>
+      <div class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Hi, I'm Fatheali Landage</h1>
+        <p>BCA student and aspiring Web Developer, skilled in Python, HTML, CSS, and JavaScript. Passionate about building responsive, user-friendly applications.</p>
+        <a href="#projects" class="btn">View My Work</a>
+      </div>
+      <div class="hero-image">
+        <img src="fateali.jpg" alt="Profile Photo" class="profile-img">
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about-content">
+      <div>
+        <h2 class="section-title">About Me</h2>
+        <p>I am pursuing a Bachelor of Computer Applications (BCA) at KLE’s Basavprabhu Kore College of Computer Application, graduating in 2026. I am dedicated to learning web technologies, data structures, and modern development practices. My goal is to contribute with hard work and creativity to deliver impactful projects.</p>
+        <div class="skills-grid">
+          <div class="skill-card">Python</div>
+          <div class="skill-card">HTML & CSS</div>
+          <div class="skill-card">JavaScript</div>
+          <div class="skill-card">Responsive Web Design</div>
+          <div class="skill-card">Full Stack Basics</div>
+          <div class="skill-card">AI Tools (ChatGPT, Gemini, etc.)</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="section-title">Certifications</h3>
+        <ul>
+          <li>Frontend Development – Seminar Room (84h, 2024)</li>
+          <li>Full Stack Development – Seminar Room (98h, 2024)</li>
+          <li>DSA Using Python – Seminar Room (56h, 2025)</li>
+          <li>Responsive Web Design – FreeCodeCamp (300h, 2025)</li>
+          <li>Python Essentials 1 – Cisco Networking Academy (32h, 2025)</li>
+          <li>Build Free Website with WordPress – Coursera (2025)</li>
+          <li>Google My Business – Google (2025)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card"><div class="project-info"><h3 class="project-title">Survey Form</h3><p class="project-description">A user-friendly survey form created with HTML and CSS.</p></div></div>
+        <div class="project-card"><div class="project-info"><h3 class="project-title">Product Landing Page</h3><p class="project-description">An interactive product page with clean design and responsive layout.</p></div></div>
+        <div class="project-card"><div class="project-info"><h3 class="project-title">Technical Documentation Page</h3><p class="project-description">Documentation-style webpage with structured navigation and content.</p></div></div>
+        <div class="project-card"><div class="project-info"><h3 class="project-title">Personal Portfolio Website</h3><p class="project-description">My first portfolio showcasing skills, certifications, and projects.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <p>📧 Email: <a href="mailto:fatealilandage@gmail.com" style="color:white;">fatealilandage@gmail.com</a></p>
+      <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/fatealilandage" style="color:white;">linkedin.com/in/fatealilandage</a></p>
+      <p>🔗 Github: <a href="https://github.com/fateali-landage" style="color:white;">github.com/in/fateali-landage</a></p>
+      <p>© 2025 Fatheali Landage. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
