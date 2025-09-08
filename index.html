@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fatheali Landage | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -13,6 +14,8 @@
       --background: #ffffff; --section-bg: #f5f6fa;
     }
     body { font-family: 'Roboto', sans-serif; color: var(--text); line-height: 1.6; }
+
+    /* Navbar */
     nav { position: fixed; top: 0; width: 100%; background: var(--background);
       padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
     .nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -20,8 +23,19 @@
     .nav-links { display: flex; gap: 2rem; }
     .nav-links a { font-family: 'Lato', sans-serif; text-decoration: none; color: var(--text); font-weight: 500; transition: color 0.3s ease; }
     .nav-links a:hover { color: var(--secondary); }
-    section { padding: 5rem 2rem; }
+
+    /* Hamburger */
+    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
+    .mobile-menu { display: none; position: fixed; top: 0; right: -100%; width: 70%; height: 100%; background: var(--background); box-shadow: -2px 0 10px rgba(0,0,0,0.1); transition: right 0.3s ease; padding: 2rem; }
+    .mobile-menu.active { right: 0; }
+    .mobile-menu a { display: block; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--secondary); }
+
+    /* Sections */
+    section { padding: 6rem 2rem; }
     .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Hero */
     #hero { min-height: 100vh; display: flex; align-items: center;
       background: linear-gradient(135deg, var(--background) 0%, var(--section-bg) 100%); }
     .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -30,29 +44,42 @@
     .btn { display: inline-block; padding: 1rem 2rem; background: var(--secondary); color: white; text-decoration: none; border-radius: 5px; font-family: 'Lato', sans-serif; font-weight: 500; transition: transform 0.3s ease; }
     .btn:hover { transform: translateY(-2px); }
 
-    /* Updated profile image */
+    /* Profile Image */
     .profile-img {
-      width: 280px;        /* smaller width */
-      height: auto;        /* keeps natural aspect ratio */
-      border-radius: 50%;  /* circular look */
+      width: 280px;
+      height: auto;
+      border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       display: block;
       margin: 0 auto;
     }
 
+    /* About */
     #about { background: var(--section-bg); }
     .about-content { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
     .section-title { font-family: 'Poppins', sans-serif; font-size: 2rem; margin-bottom: 2rem; color: var(--primary); }
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 1rem; margin-top: 2rem; }
     .skill-card { background: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
     .skill-card:hover { transform: translateY(-5px); }
+
+    /* Projects */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; }
     .project-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-    .project-card:hover { transform: translateY(-5px); }
+    .project-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .project-info { padding: 1.5rem; }
+
+    /* Footer */
     footer { background: var(--primary); color: white; padding: 2rem; text-align: center; }
-    @media (max-width:768px){ .hero-content,.about-content{grid-template-columns:1fr;} .hero-text h1{font-size:2.5rem;} .nav-links{display:none;} }
+    footer a { color: white; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width:768px){
+      .hero-content, .about-content{grid-template-columns:1fr;}
+      .hero-text h1{font-size:2.5rem;}
+      .nav-links{display:none;}
+      .hamburger{display:block;}
+    }
   </style>
 </head>
 <body>
@@ -65,6 +92,13 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </div>
+      <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
@@ -124,11 +158,26 @@
 
   <footer id="contact">
     <div class="container">
-      <p>📧 Email: <a href="mailto:fatealilandage@gmail.com" style="color:white;">fatealilandage@gmail.com</a></p>
-      <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/fatealilandage" style="color:white;">linkedin.com/in/fatealilandage</a></p>
-      <p>🔗 Github: <a href="https://github.com/fateali-landage" style="color:white;">github.com/in/fateali-landage</a></p>
+      <p><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:fatealilandage@gmail.com">fatealilandage@gmail.com</a></p>
+      <p><i class="fa-brands fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/fatealilandage">linkedin.com/in/fatealilandage</a></p>
+      <p><i class="fa-brands fa-github"></i> Github: <a href="https://github.com/fateali-landage">github.com/fateali-landage</a></p>
       <p>© 2025 Fatheali Landage. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
