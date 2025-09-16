@@ -4,90 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fatheali Landage | Portfolio</title>
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Reset & Variables */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
     :root {
-      --primary: #2d3436; --secondary: #0984e3;
-      --accent: #00b894; --text: #2d3436;
-      --background: #ffffff; --section-bg: #f5f6fa;
+      --primary: #1e1e2f;       /* Dark text */
+      --secondary: #6c5ce7;     /* Purple accent */
+      --accent: #00b894;        /* Green highlight */
+      --background: #fdf6f0;    /* Soft background */
+      --section-bg: #ffeaa7;    /* Light pastel for sections */
+      --btn-hover: #fd79a8;     /* Pink hover */
     }
-    body { font-family: 'Roboto', sans-serif; color: var(--text); line-height: 1.6; }
+    body { font-family: 'Roboto', sans-serif; color: var(--primary); line-height:1.6; background: var(--background); }
 
     /* Navbar */
-    nav { position: fixed; top: 0; width: 100%; background: var(--background);
-      padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
-    .nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--primary); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { font-family: 'Lato', sans-serif; text-decoration: none; color: var(--text); font-weight: 500; transition: color 0.3s ease; }
-    .nav-links a:hover { color: var(--secondary); }
+    nav {
+      position: fixed; top:0; width:100%; background: var(--background);
+      padding:1rem 2rem; box-shadow:0 2px 10px rgba(0,0,0,0.1); z-index:1000;
+    }
+    .nav-content { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+    .logo { font-family:'Poppins',sans-serif; font-size:1.5rem; font-weight:600; color: var(--primary); }
+    .nav-links { display:flex; gap:2rem; }
+    .nav-links a { font-family:'Lato',sans-serif; text-decoration:none; color: var(--primary); font-weight:500; transition: color 0.3s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--secondary); }
 
-    /* Hamburger */
-    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
-    .mobile-menu { display: none; position: fixed; top: 0; right: -100%; width: 70%; height: 100%; background: var(--background); box-shadow: -2px 0 10px rgba(0,0,0,0.1); transition: right 0.3s ease; padding: 2rem; }
-    .mobile-menu.active { right: 0; }
-    .mobile-menu a { display: block; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--text); text-decoration: none; }
+    /* Hamburger & Mobile Menu */
+    .hamburger { display:none; font-size:1.8rem; cursor:pointer; }
+    .mobile-menu {
+      display:none; position:fixed; top:0; right:-100%; width:70%; height:100%;
+      background: var(--background); box-shadow:-2px 0 10px rgba(0,0,0,0.1);
+      transition: right 0.3s ease; padding:2rem;
+    }
+    .mobile-menu.active { right:0; display:block; }
+    .mobile-menu a { display:block; margin-bottom:1.5rem; font-size:1.2rem; color: var(--primary); text-decoration:none; }
     .mobile-menu a:hover { color: var(--secondary); }
 
     /* Sections */
-    section { padding: 6rem 2rem; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    section { padding:6rem 2rem; }
+    .container { max-width:1200px; margin:0 auto; }
 
     /* Hero */
-    #hero { min-height: 100vh; display: flex; align-items: center;
-      background: linear-gradient(135deg, var(--background) 0%, var(--section-bg) 100%); }
-    .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .hero-text h1 { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary); }
-    .hero-text p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
-    .btn { display: inline-block; padding: 1rem 2rem; background: var(--secondary); color: white; text-decoration: none; border-radius: 5px; font-family: 'Lato', sans-serif; font-weight: 500; transition: transform 0.3s ease; }
-    .btn:hover { transform: translateY(-2px); }
+    #hero { min-height:100vh; display:flex; align-items:center; background: linear-gradient(135deg, #ffeaa7 0%, #fd79a8 100%); }
+    .hero-content { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+    .hero-text h1 { font-family:'Poppins',sans-serif; font-size:3.5rem; font-weight:700; margin-bottom:1rem; color: var(--primary); animation: fadeInDown 1.5s; }
+    .hero-text p { font-size:1.2rem; margin-bottom:2rem; opacity:0.9; animation: fadeInUp 2s; }
+    .btn {
+      display:inline-block; padding:1rem 2rem; background: var(--secondary); color:#fff;
+      text-decoration:none; border-radius:30px; font-family:'Lato',sans-serif; font-weight:500; transition: all 0.3s ease;
+    }
+    .btn:hover { transform:translateY(-3px); background: var(--btn-hover); }
+
+    /* Animations */
+    @keyframes fadeInDown { from{opacity:0; transform:translateY(-30px);} to{opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
 
     /* Profile Image */
     .profile-img {
-      width: 280px;
-      height: auto;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      display: block;
-      margin: 0 auto;
+      width:280px; border-radius:50%; object-fit:cover;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15); display:block; margin:0 auto; border:5px solid var(--secondary);
     }
 
     /* About */
     #about { background: var(--section-bg); }
-    .about-content { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
-    .section-title { font-family: 'Poppins', sans-serif; font-size: 2rem; margin-bottom: 2rem; color: var(--primary); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 1rem; margin-top: 2rem; }
-    .skill-card { background: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-    .skill-card:hover { transform: translateY(-5px); }
+    .about-content { display:grid; grid-template-columns:1fr 2fr; gap:4rem; }
+    .section-title { font-family:'Poppins',sans-serif; font-size:2rem; margin-bottom:2rem; color: var(--primary); text-transform:uppercase; }
+
+    /* Skills */
+    .skills-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:1rem; margin-top:2rem; }
+    .skill-card { 
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0); 
+      padding:1rem; border-radius:10px; text-align:center; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; font-size:0.95rem; 
+      color: var(--primary);
+    }
+    .skill-card i { font-size:1.5rem; margin-bottom:0.5rem; display:block; }
+    .skill-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(255,183,197,0.5); }
+
+    /* Certifications Timeline */
+    .timeline { border-left:3px solid var(--secondary); padding-left:20px; }
+    .timeline li { margin-bottom:1.5rem; position:relative; font-size:0.95rem; }
+    .timeline li::before {
+      content:""; position:absolute; left:-12px; top:5px; width:12px; height:12px; background: var(--secondary); border-radius:50%;
+    }
 
     /* Projects */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; }
-    .project-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-    .project-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-    .project-info { padding: 1.5rem; }
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin-top:2rem; }
+    .project-card { background:white; border-radius:15px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .project-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 8px 20px rgba(255,105,180,0.3); }
+    .project-img { width:100%; height:180px; object-fit:cover; }
+    .project-info { padding:1.5rem; }
+    .project-buttons a {
+      display:inline-block; margin-top:0.5rem; margin-right:0.5rem; padding:0.6rem 1.2rem;
+      border-radius:30px; font-size:0.9rem; font-weight:500; text-decoration:none; color:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s ease;
+    }
+    .project-buttons a.view-code { background: linear-gradient(135deg,#6c5ce7,#a29bfe); }
+    .project-buttons a.view-code:hover { background:#6c5ce7; transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+    .project-buttons a.live-demo { background: linear-gradient(135deg,#00b894,#00d28a); }
+    .project-buttons a.live-demo:hover { background:#00b894; transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,0.25); }
 
     /* Footer */
-    footer { background: var(--primary); color: white; padding: 2rem; text-align: center; }
-    footer a { color: white; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    footer { background: var(--primary); color:white; padding:2rem; text-align:center; }
+    .social-icons a { margin:0 10px; font-size:1.5rem; color:white; transition:0.3s; }
+    .social-icons a:hover { color: var(--accent); }
 
+    /* Media Queries */
+    @media (max-width:1024px){
+      .about-content { grid-template-columns:1fr; }
+      .hero-content { grid-template-columns:1fr; gap:2rem; }
+    }
     @media (max-width:768px){
-      .hero-content, .about-content{grid-template-columns:1fr;}
       .hero-text h1{font-size:2.5rem;}
       .nav-links{display:none;}
       .hamburger{display:block;}
+      .profile-img{width:220px;}
+      .section-title{font-size:1.6rem;}
+    }
+    @media (max-width:480px){
+      .btn{padding:0.8rem 1.5rem; font-size:0.9rem;}
+      .project-buttons a{padding:0.5rem 1rem; font-size:0.8rem;}
+      .skill-card{font-size:0.85rem;}
+      .timeline li{font-size:0.85rem;}
     }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
   <nav>
     <div class="nav-content">
       <div class="logo">Fatheali Portfolio</div>
       <div class="nav-links">
-        <a href="#hero">Home</a>
+        <a href="#hero" class="active">Home</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
@@ -102,6 +152,7 @@
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <section id="hero">
     <div class="container hero-content">
       <div class="hero-text">
@@ -110,28 +161,29 @@
         <a href="#projects" class="btn">View My Work</a>
       </div>
       <div class="hero-image">
-        <img src="fateali.jpg" alt="Profile Photo" class="profile-img">
+        <img src="fateali.jpg" alt="Profile Photo" class="profile-img" loading="lazy">
       </div>
     </div>
   </section>
 
+  <!-- About Section -->
   <section id="about">
     <div class="container about-content">
       <div>
         <h2 class="section-title">About Me</h2>
         <p>I am pursuing a Bachelor of Computer Applications (BCA) at KLE’s Basavprabhu Kore College of Computer Application, graduating in 2026. I am dedicated to learning web technologies, data structures, and modern development practices. My goal is to contribute with hard work and creativity to deliver impactful projects.</p>
         <div class="skills-grid">
-          <div class="skill-card">Python</div>
-          <div class="skill-card">HTML & CSS</div>
-          <div class="skill-card">JavaScript</div>
-          <div class="skill-card">Responsive Web Design</div>
-          <div class="skill-card">Full Stack Basics</div>
-          <div class="skill-card">AI Tools (ChatGPT, Gemini, etc.)</div>
+          <div class="skill-card"><i class="fa-brands fa-python"></i> Python</div>
+          <div class="skill-card"><i class="fa-brands fa-html5"></i> HTML & CSS</div>
+          <div class="skill-card"><i class="fa-brands fa-js"></i> JavaScript</div>
+          <div class="skill-card"><i class="fa-solid fa-laptop-code"></i> Responsive Design</div>
+          <div class="skill-card"><i class="fa-solid fa-database"></i> Full Stack Basics</div>
+          <div class="skill-card"><i class="fa-solid fa-robot"></i> AI Tools</div>
         </div>
       </div>
       <div>
         <h3 class="section-title">Certifications</h3>
-        <ul>
+        <ul class="timeline">
           <li>Frontend Development – Seminar Room (84h, 2024)</li>
           <li>Full Stack Development – Seminar Room (98h, 2024)</li>
           <li>DSA Using Python – Seminar Room (56h, 2025)</li>
@@ -144,38 +196,68 @@
     </div>
   </section>
 
+  <!-- Projects Section -->
   <section id="projects">
     <div class="container">
       <h2 class="section-title">My Projects</h2>
       <div class="projects-grid">
-        <div class="project-card"><div class="project-info"><h3 class="project-title">Survey Form</h3><p class="project-description">A user-friendly survey form created with HTML and CSS.</p></div></div>
-        <div class="project-card"><div class="project-info"><h3 class="project-title">Product Landing Page</h3><p class="project-description">An interactive product page with clean design and responsive layout.</p></div></div>
-        <div class="project-card"><div class="project-info"><h3 class="project-title">Technical Documentation Page</h3><p class="project-description">Documentation-style webpage with structured navigation and content.</p></div></div>
-        <div class="project-card"><div class="project-info"><h3 class="project-title">Personal Portfolio Website</h3><p class="project-description">My first portfolio showcasing skills, certifications, and projects.</p></div></div>
+        <div class="project-card">
+          <img src="project3.jpg" alt="Navigation page" class="project-img" loading="lazy">
+          <div class="project-info">
+            <h3 class="project-title">Batman Theme Navigation</h3>
+            <p>Batman themed navigation with dark mode, glowing Bat-Signal hover effects, smooth scrolling, hero-style links, immersive Gotham-inspired design.</p>
+            <div class="project-buttons">
+              <a href="#" class="view-code">View Code</a>
+              <a href="#" class="live-demo">Live Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="project4.jpg" alt="Portfolio" class="project-img" loading="lazy">
+          <div class="project-info">
+            <h3 class="project-title">Personal Portfolio</h3>
+            <p>My first portfolio showcasing skills, certifications, and projects.</p>
+            <div class="project-buttons">
+              <a href="#" class="view-code">View Code</a>
+              <a href="#" class="live-demo">Live Demo</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer id="contact">
     <div class="container">
-      <p><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:fatealilandage@gmail.com">fatealilandage@gmail.com</a></p>
-      <p><i class="fa-brands fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/fatealilandage">linkedin.com/in/fatealilandage</a></p>
-      <p><i class="fa-brands fa-github"></i> Github: <a href="https://github.com/fateali-landage">github.com/fateali-landage</a></p>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/fatealilandage"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/fateali-landage"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.instagram.com/fateali_landage/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      </div>
       <p>© 2025 Fatheali Landage. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- JS -->
   <script>
     const hamburger = document.querySelector('.hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('active'); });
+    document.querySelectorAll('.mobile-menu a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.remove('active'); }); });
 
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
+    // Scroll active link highlight
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 70;
+        if(scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if(link.getAttribute('href').includes(current)) link.classList.add('active');
       });
     });
   </script>
