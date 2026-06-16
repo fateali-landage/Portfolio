@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /login
+
+Sitemap: https://fateali-landage.github.io/Portfolio/sitemap.xml

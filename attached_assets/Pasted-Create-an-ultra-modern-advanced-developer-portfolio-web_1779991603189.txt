@@ -1,0 +1,125 @@
+Create an ultra-modern advanced developer portfolio website for “Fateali Landage” using React + Tailwind CSS + Framer Motion.
+
+Theme:
+Dark futuristic premium UI with glassmorphism, smooth animations, glowing effects, and cinematic feel.
+
+Color Palette:
+Black background with purple and cyan neon accents.
+
+Style Inspiration:
+Awwwards-level modern portfolio, highly interactive and responsive.
+
+Website Sections:
+1. Hero Section
+- Animated introduction
+- Typing effect
+- Professional headline:
+  “Frontend Developer & UI Designer”
+- Short intro paragraph
+- CTA buttons:
+  “View Projects”
+  “Download Resume”
+- Social media icons
+- Animated profile image with glow effect
+
+2. About Section
+- Professional developer introduction
+- Skills overview
+- Experience summary
+- Animated statistics cards
+
+3. Skills Section
+- Modern tech stack icons
+- HTML
+- CSS
+- JavaScript
+- React
+- Tailwind CSS
+- Node.js
+- Python
+- Firebase
+- Animated hover effects
+
+4. Services Section
+- Web Development
+- Responsive Design
+- UI/UX Design
+- Portfolio Websites
+- Animated service cards
+
+5. Projects Section
+Create modern animated project cards with:
+- Project image
+- Project title
+- Description
+- Tech stack badges
+- Live Demo button
+- GitHub button
+- Hover animation
+
+Projects:
+- Traffic Tracking System
+- E-commerce Website
+- AI Chat Application
+- Portfolio Website
+
+6. Experience Timeline
+Animated vertical timeline with:
+- Certifications
+- Learning journey
+- Internships
+- Academic milestones
+
+7. GitHub Stats Section
+Add:
+- Contribution graph
+- GitHub streak
+- Most used languages
+
+8. Testimonials Section
+Modern glassmorphism testimonial cards.
+
+9. Contact Section
+Modern contact form with:
+- Name
+- Email
+- Message
+- Send button animation
+
+10. Footer
+Minimal premium footer with social links.
+
+Advanced Features:
+- Smooth scrolling
+- Framer Motion animations
+- Scroll reveal animations
+- Custom cursor glow effect
+- Animated background particles
+- Dark/light mode toggle
+- Fully responsive for mobile/tablet/desktop
+- Sticky animated navbar
+- Active section indicator
+- Page loading animation
+- Hover glow effects
+- Modern scrollbar
+- SEO optimized
+- Accessibility optimized
+
+Technical Requirements:
+- Use React functional components
+- Tailwind CSS for styling
+- Framer Motion for animations
+- Clean reusable component structure
+- Responsive mobile-first design
+- Professional code architecture
+
+Design Requirements:
+- Minimal but futuristic
+- Premium developer portfolio look
+- Cinematic smooth transitions
+- Elegant typography
+- Modern spacing and layout
+- Interactive hover states everywhere
+
+Output:
+Generate complete production-level portfolio website code with organized folders and reusable components.

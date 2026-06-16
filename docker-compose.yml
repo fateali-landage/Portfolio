@@ -1,0 +1,42 @@
+services:
+  database:
+    image: mongo:latest
+    container_name: portfolio_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://database:27017/portfolio
+      - JWT_SECRET=super_secret_portfolio_key_1298371923
+      - JWT_EXPIRE=30d
+      - NODE_ENV=development
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+  uploads_data:
