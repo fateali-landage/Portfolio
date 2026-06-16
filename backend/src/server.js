@@ -31,6 +31,9 @@ connectDB()
 
 const app = express()
 
+// Trust proxy for reverse proxy environments (e.g., Render)
+app.set('trust proxy', 1)
+
 // Security Middlewares
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
@@ -46,6 +49,9 @@ app.use(cors({
   credentials: true
 }))
 
+// Parse JSON request body
+app.use(express.json())
+
 // Rate Limiter
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -55,9 +61,6 @@ const apiLimiter = rateLimit({
   message: { message: 'Too many requests from this IP, please try again after 15 minutes.' }
 })
 app.use('/api/', apiLimiter)
-
-// Parse JSON request body
-app.use(express.json())
 
 // Serve static uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
