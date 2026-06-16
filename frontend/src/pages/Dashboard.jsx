@@ -1561,7 +1561,7 @@ export default function Dashboard() {
                     <div className="mt-4 flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
                       {resumeUrl && (
                         <a 
-                          href={resumeUrl.startsWith('http') ? resumeUrl : `${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000'}${resumeUrl}`}
+                          href={getAssetUrl(resumeUrl)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full sm:w-auto px-6 py-3 border border-white/10 hover:border-white/20 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
