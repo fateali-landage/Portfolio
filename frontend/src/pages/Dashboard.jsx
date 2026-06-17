@@ -294,6 +294,7 @@ export default function Dashboard() {
     try {
       const data = await uploadService.uploadResume(file)
       setResumeUrl(data.resumeUrl)
+      setSettings(prev => ({ ...prev, resumeUrl: data.resumeUrl }))
       showNotification('Resume PDF uploaded and replaced successfully.')
     } catch (err) {
       console.error(err)
