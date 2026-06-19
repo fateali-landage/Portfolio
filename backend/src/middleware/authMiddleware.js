@@ -26,14 +26,14 @@ export const protectAdmin = async (req, res, next) => {
         return res.status(403).json({ message: 'Access denied, administrator role required' })
       }
 
-      next()
+      return next()
     } catch (error) {
       console.error(error)
-      res.status(401).json({ message: 'Not authorized, token validation failed' })
+      return res.status(401).json({ message: 'Not authorized, token validation failed' })
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token provided' })
+    return res.status(401).json({ message: 'Not authorized, no token provided' })
   }
 }

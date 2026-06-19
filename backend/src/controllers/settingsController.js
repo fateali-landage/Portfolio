@@ -1,4 +1,5 @@
 import Settings from '../models/settingsModel.js'
+import { deleteFromCloudinary } from '../services/uploadService.js'
 
 // @desc    Get global settings
 // @route   GET /api/settings
@@ -24,6 +25,20 @@ export const updateSettings = async (req, res, next) => {
     if (!settings) {
       settings = new Settings(req.body)
     } else {
+      // Check for replaced assets to delete from Cloudinary
+      if (req.body.profileImage !== undefined && req.body.profileImage !== settings.profileImage) {
+        if (settings.profileImage) await deleteFromCloudinary(settings.profileImage)
+      }
+      if (req.body.ogImageUrl !== undefined && req.body.ogImageUrl !== settings.ogImageUrl) {
+        if (settings.ogImageUrl) await deleteFromCloudinary(settings.ogImageUrl)
+      }
+      if (req.body.faviconUrl !== undefined && req.body.faviconUrl !== settings.faviconUrl) {
+        if (settings.faviconUrl) await deleteFromCloudinary(settings.faviconUrl)
+      }
+      if (req.body.resumeUrl !== undefined && req.body.resumeUrl !== settings.resumeUrl) {
+        if (settings.resumeUrl) await deleteFromCloudinary(settings.resumeUrl)
+      }
+      
       Object.assign(settings, req.body)
     }
     const updatedSettings = await settings.save()

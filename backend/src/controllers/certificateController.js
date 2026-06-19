@@ -1,4 +1,5 @@
 import Certificate from '../models/certificateModel.js'
+import { deleteFromCloudinary } from '../services/uploadService.js'
 
 // @desc    Get all certificates
 // @route   GET /api/certificates
@@ -46,7 +47,14 @@ export const updateCertificate = async (req, res, next) => {
       certificate.title = title || certificate.title
       certificate.issuer = issuer || certificate.issuer
       certificate.issueDate = issueDate || certificate.issueDate
-      certificate.image = image !== undefined ? image : certificate.image
+      
+      // Delete old image from Cloudinary if image has changed
+      if (image !== undefined && image !== certificate.image) {
+        if (certificate.image) {
+          await deleteFromCloudinary(certificate.image)
+        }
+        certificate.image = image
+      }
 
       const updatedCertificate = await certificate.save()
       res.json(updatedCertificate)
@@ -66,6 +74,9 @@ export const deleteCertificate = async (req, res, next) => {
     const certificate = await Certificate.findById(req.params.id)
 
     if (certificate) {
+      if (certificate.image) {
+        await deleteFromCloudinary(certificate.image)
+      }
       await Certificate.deleteOne({ _id: req.params.id })
       res.json({ message: 'Certificate removed successfully' })
     } else {

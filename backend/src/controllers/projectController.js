@@ -1,4 +1,5 @@
 import Project from '../models/projectModel.js'
+import { deleteFromCloudinary } from '../services/uploadService.js'
 
 // @desc    Get all projects
 // @route   GET /api/projects
@@ -47,7 +48,15 @@ export const updateProject = async (req, res, next) => {
     if (project) {
       project.title = title || project.title
       project.description = description || project.description
-      project.image = image !== undefined ? image : project.image
+      
+      // Delete old image from Cloudinary if image has changed
+      if (image !== undefined && image !== project.image) {
+        if (project.image) {
+          await deleteFromCloudinary(project.image)
+        }
+        project.image = image
+      }
+
       project.githubUrl = githubUrl || project.githubUrl
       project.demoUrl = demoUrl || project.demoUrl
       project.technologies = technologies || project.technologies
@@ -65,11 +74,15 @@ export const updateProject = async (req, res, next) => {
 // @desc    Delete a project
 // @route   DELETE /api/projects/:id
 // @access  Private/Admin
+// export const deleteProject = async (req, res, next) => {
 export const deleteProject = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id)
 
     if (project) {
+      if (project.image) {
+        await deleteFromCloudinary(project.image)
+      }
       await Project.deleteOne({ _id: req.params.id })
       res.json({ message: 'Project removed successfully' })
     } else {

@@ -95,3 +95,12 @@ export const settingsValidator = [
   validate
 ]
 
+export const timelineValidator = [
+  body('year').trim().notEmpty().withMessage('Milestone year is required'),
+  body('title').trim().notEmpty().withMessage('Milestone title is required'),
+  body('detail').trim().notEmpty().withMessage('Milestone detail description is required'),
+  body('iconName').optional().trim(),
+  body('order').optional().isInt().withMessage('Order must be an integer'),
+  validate
+]
+

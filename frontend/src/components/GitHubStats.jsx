@@ -91,11 +91,11 @@ export default function GitHubStats({ githubUrl }) {
                 <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
                   <img 
                     src={profile.avatar_url} 
-                    alt={profile.name || USERNAME} 
+                    alt={profile.name || profile.login} 
                     className="w-20 h-20 rounded-2xl border border-white/10"
                   />
                   <div className="space-y-2">
-                    <h4 className="text-xl md:text-2xl font-bold text-white">{profile.name || USERNAME}</h4>
+                    <h4 className="text-xl md:text-2xl font-bold text-white">{profile.name || profile.login}</h4>
                     <p className="text-xs font-mono text-cyan-400">@{profile.login}</p>
                     <p className="text-sm text-slate-400 max-w-md">{profile.bio || 'BCA student and developer.'}</p>
                   </div>

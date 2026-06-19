@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
@@ -24,6 +24,13 @@ import {
 export default function Dashboard() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const notificationTimeoutRef = useRef(null)
+  
+  useEffect(() => {
+    return () => {
+      if (notificationTimeoutRef.current) clearTimeout(notificationTimeoutRef.current)
+    }
+  }, [])
   
   // Navigation tabs: projects | skills | certificates | internships | timeline | socials | resume | hero | education | cybersecurity | achievements | settings
   const [activeTab, setActiveTab] = useState('projects') 
@@ -756,7 +763,8 @@ export default function Dashboard() {
 
   const showNotification = (msg) => {
     setSuccess(msg)
-    setTimeout(() => setSuccess(''), 4000)
+    if (notificationTimeoutRef.current) clearTimeout(notificationTimeoutRef.current)
+    notificationTimeoutRef.current = setTimeout(() => setSuccess(''), 4000)
   }
 
   const handleLogout = () => {

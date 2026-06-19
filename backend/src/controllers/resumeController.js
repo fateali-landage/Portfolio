@@ -1,4 +1,4 @@
-import { uploadToCloudinary } from '../services/uploadService.js'
+import { uploadToCloudinary, deleteFromCloudinary } from '../services/uploadService.js'
 import Settings from '../models/settingsModel.js'
 
 // @desc    Upload resume PDF to Cloudinary
@@ -18,6 +18,9 @@ export const uploadResumeController = async (req, res, next) => {
     if (!settings) {
       settings = new Settings({ resumeUrl })
     } else {
+      if (settings.resumeUrl) {
+        await deleteFromCloudinary(settings.resumeUrl)
+      }
       settings.resumeUrl = resumeUrl
     }
     await settings.save()

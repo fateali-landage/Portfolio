@@ -29,4 +29,18 @@ API.interceptors.request.use(
   }
 )
 
+// Response interceptor to handle token expiration/invalidity
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('adminToken')
+      if (window.location.pathname.includes('/admin/dashboard')) {
+        window.location.href = '/admin'
+      }
+    }
+    return Promise.reject(error)
+  }
+)
+
 export default API

@@ -4,22 +4,36 @@ import { motion } from 'framer-motion'
 export default function CustomCursor() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [hovering, setHovering] = useState(false)
+  const [isMobile, setIsMobile] = useState(true)
 
   useEffect(() => {
+    const checkDevice = () => {
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isSmallScreen = window.innerWidth < 1024
+      setIsMobile(hasTouch || isSmallScreen)
+    }
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+
     const move = (e) => setPos({ x: e.clientX, y: e.clientY })
     const over = (e) => {
       if (e.target.closest('a, button, [data-hover]')) setHovering(true)
     }
     const out = () => setHovering(false)
+    
     window.addEventListener('mousemove', move)
     document.addEventListener('mouseover', over)
     document.addEventListener('mouseout', out)
+    
     return () => {
+      window.removeEventListener('resize', checkDevice)
       window.removeEventListener('mousemove', move)
       document.removeEventListener('mouseover', over)
       document.removeEventListener('mouseout', out)
     }
   }, [])
+
+  if (isMobile) return null
 
   return (
     <>

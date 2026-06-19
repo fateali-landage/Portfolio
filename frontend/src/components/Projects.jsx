@@ -59,6 +59,7 @@ const getProjectDetails = (project) => {
 export default function Projects() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
+  const [imageErrors, setImageErrors] = useState({})
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -116,18 +117,13 @@ export default function Projects() {
                     
                     {/* Image/Mock Visual */}
                     <div className="relative h-48 overflow-hidden bg-slate-900 shrink-0">
-                      {project.image ? (
+                      {project.image && !imageErrors[project._id] ? (
                         <img 
                           src={getAssetUrl(project.image)} 
                           alt={project.title} 
                           className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.parentNode.innerHTML = `
-                              <div class="w-full h-full bg-gradient-to-br from-purple-900/40 to-cyan-900/40 flex items-center justify-center font-mono text-xs text-slate-500 tracking-wider uppercase p-4 text-center">
-                                ${project.title} Preview
-                              </div>
-                            `;
+                          onError={() => {
+                            setImageErrors(prev => ({ ...prev, [project._id]: true }))
                           }}
                         />
                       ) : (

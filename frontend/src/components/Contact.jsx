@@ -20,6 +20,7 @@ export default function Contact({ settings }) {
   const [socials, setSocials] = useState([])
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+  const timeoutRef = useRef(null)
 
   useEffect(() => {
     const fetchSocials = async () => {
@@ -31,6 +32,9 @@ export default function Contact({ settings }) {
       }
     }
     fetchSocials()
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
@@ -42,7 +46,8 @@ export default function Contact({ settings }) {
     await new Promise((r) => setTimeout(r, 1500))
     setStatus('sent')
     setForm({ name: '', email: '', message: '' })
-    setTimeout(() => setStatus('idle'), 4000)
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => setStatus('idle'), 4000)
   }
 
   // Helper to split and render styled title

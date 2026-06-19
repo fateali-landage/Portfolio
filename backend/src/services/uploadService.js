@@ -33,3 +33,37 @@ export const uploadToCloudinary = async (filePath, folder = 'portfolio', resourc
     throw error
   }
 }
+
+/**
+ * Deletes a file from Cloudinary given its secure URL.
+ * @param {string} url - Cloudinary secure URL
+ */
+export const deleteFromCloudinary = async (url) => {
+  if (!url || !url.includes('cloudinary.com')) return
+  try {
+    const parts = url.split('/upload/')
+    if (parts.length < 2) return
+
+    const pathPart = parts[1]
+    const pathParts = pathPart.split('/')
+    if (pathParts[0].startsWith('v') && !isNaN(pathParts[0].substring(1))) {
+      pathParts.shift()
+    }
+
+    const fullPublicId = pathParts.join('/')
+    const lastDotIndex = fullPublicId.lastIndexOf('.')
+    const publicId = lastDotIndex > -1 ? fullPublicId.substring(0, lastDotIndex) : fullPublicId
+
+    let resourceType = 'image'
+    if (url.includes('/raw/upload/') || url.endsWith('.pdf')) {
+      resourceType = 'raw'
+    } else if (url.includes('/video/upload/')) {
+      resourceType = 'video'
+    }
+
+    console.log(`Deleting from Cloudinary: public_id=${publicId}, resourceType=${resourceType}`)
+    await cloudinary.uploader.destroy(publicId, { resource_type: resourceType })
+  } catch (error) {
+    console.error(`Failed to delete Cloudinary asset at ${url}:`, error)
+  }
+}
