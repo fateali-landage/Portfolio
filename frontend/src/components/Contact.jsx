@@ -10,8 +10,8 @@ const iconMap = {
   'email': FiMail
 }
 
-export default function Contact({ settings, settingsLoaded }) {
-  const resumeUrl = settings?.resumeUrl || ''
+export default function Contact({ settings }) {
+  const resumeUrl = settings?.resumeUrl || '/resume.pdf'
   const contactTitle = settings?.contactTitle || "Let's Build Something Great Together"
   const contactDesc = settings?.contactDesc || 'Have an open role, project opportunity, or just want to connect? Send a message below!'
 
@@ -114,42 +114,24 @@ export default function Contact({ settings, settingsLoaded }) {
               })}
 
               {/* Resume download quicklink */}
-              {!settingsLoaded ? (
-                null
-              ) : settings?.resumeUrl ? (
-                <motion.a
-                  href={getAssetUrl(settings.resumeUrl)}
-                  download="Fatheali_Landage_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 6, scale: 1.02 }}
-                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-purple-500/20 transition-all duration-300 group cursor-pointer"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-slate-400 group-hover:text-purple-400 group-hover:scale-110 transition-all text-xl shrink-0">
-                    <FiDownload />
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
-                    <p className="font-semibold text-sm text-slate-200 group-hover:text-white transition-colors mt-0.5">
-                      Download PDF Resume
-                    </p>
-                  </div>
-                </motion.a>
-              ) : (
-                <div
-                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] opacity-50 cursor-not-allowed"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center text-slate-500 text-xl shrink-0">
-                    <FiDownload />
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
-                    <p className="font-semibold text-sm text-slate-500 mt-0.5">
-                      Resume Unavailable
-                    </p>
-                  </div>
+              <motion.a
+                href={getAssetUrl(resumeUrl)}
+                download="Fatheali_Landage_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ x: 6, scale: 1.02 }}
+                className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-purple-500/20 transition-all duration-300 group cursor-pointer"
+              >
+                <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-slate-400 group-hover:text-purple-400 group-hover:scale-110 transition-all text-xl shrink-0">
+                  <FiDownload />
                 </div>
-              )}
+                <div>
+                  <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
+                  <p className="font-semibold text-sm text-slate-200 group-hover:text-white transition-colors mt-0.5">
+                    Download PDF Resume
+                  </p>
+                </div>
+              </motion.a>
             </div>
           </motion.div>
 
