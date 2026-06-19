@@ -337,7 +337,7 @@ const seedDB = async () => {
 
     // Create default settings
     await Settings.create({
-      resumeUrl: '/uploads/resume.pdf',
+      resumeUrl: '',
       ownerName: 'Fatheali Landage',
       headline: 'Frontend Developer | Python Learner | AI & Cybersecurity Enthusiast',
       description: 'BCA student graduating in 2026 with practical experience in web development, internships, React applications, Python programming, and emerging technologies.',

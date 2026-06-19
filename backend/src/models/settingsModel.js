@@ -41,7 +41,7 @@ const heroStatSchema = new mongoose.Schema({
 const settingsSchema = new mongoose.Schema({
   resumeUrl: {
     type: String,
-    default: '/uploads/resume.pdf'
+    default: ''
   },
   // Hero Section
   ownerName: {

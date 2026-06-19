@@ -6,8 +6,8 @@ import { getAssetUrl } from '../utils/url'
 
 const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='100%' height='100%' fill='%23111827'/><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' fill='%23a855f7'/></svg>"
 
-export default function Hero({ settings, githubUrl, linkedinUrl }) {
-  const resumeUrl = settings?.resumeUrl || '/uploads/resume.pdf'
+export default function Hero({ settings, settingsLoaded, githubUrl, linkedinUrl }) {
+  const resumeUrl = settings?.resumeUrl || ''
   const ownerName = settings?.ownerName || 'Fatheali Landage'
   const headline = settings?.headline || 'Frontend Developer | Python Learner | AI & Cybersecurity Enthusiast'
   const description = settings?.description || 'BCA student graduating in 2026 with practical experience in web development, internships, React applications, Python programming, and emerging technologies.'
@@ -91,9 +91,11 @@ export default function Hero({ settings, githubUrl, linkedinUrl }) {
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mt-4">
-            {resumeUrl && (
+            {!settingsLoaded ? (
+              null
+            ) : settings?.resumeUrl ? (
               <a 
-                href={getAssetUrl(resumeUrl)} 
+                href={getAssetUrl(settings.resumeUrl)} 
                 download="Fatheali_Landage_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -101,6 +103,13 @@ export default function Hero({ settings, githubUrl, linkedinUrl }) {
               >
                 <FiDownload /> Resume Download
               </a>
+            ) : (
+              <button 
+                disabled
+                className="px-6 py-3.5 bg-slate-800 text-slate-500 font-semibold rounded-xl transition-all flex items-center gap-2 text-sm cursor-not-allowed opacity-50 border border-white/5"
+              >
+                <FiDownload /> Resume Unavailable
+              </button>
             )}
             
             <Link to="Contact" smooth={true} duration={800} className="cursor-pointer">
@@ -204,15 +213,19 @@ export default function Hero({ settings, githubUrl, linkedinUrl }) {
               className="absolute inset-[-10px] rounded-full border border-cyan-500/30 border-dashed"
             />
             <div className="absolute inset-2 bg-[#020005] rounded-full overflow-hidden flex items-center justify-center border border-white/5">
-              <img
-                src={getAssetUrl(profileImage)}
-                alt={ownerName}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = DEFAULT_AVATAR;
-                }}
-                className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
-              />
+              {!settingsLoaded ? (
+                <div className="w-full h-full animate-pulse bg-slate-800 rounded-full" />
+              ) : (
+                <img
+                  src={getAssetUrl(profileImage)}
+                  alt={ownerName}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = DEFAULT_AVATAR;
+                  }}
+                  className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              )}
             </div>
           </div>
         </motion.div>

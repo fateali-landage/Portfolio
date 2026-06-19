@@ -10,8 +10,8 @@ const iconMap = {
   'email': FiMail
 }
 
-export default function Contact({ settings }) {
-  const resumeUrl = settings?.resumeUrl || '/uploads/resume.pdf'
+export default function Contact({ settings, settingsLoaded }) {
+  const resumeUrl = settings?.resumeUrl || ''
   const contactTitle = settings?.contactTitle || "Let's Build Something Great Together"
   const contactDesc = settings?.contactDesc || 'Have an open role, project opportunity, or just want to connect? Send a message below!'
 
@@ -114,9 +114,11 @@ export default function Contact({ settings }) {
               })}
 
               {/* Resume download quicklink */}
-              {resumeUrl && (
+              {!settingsLoaded ? (
+                null
+              ) : settings?.resumeUrl ? (
                 <motion.a
-                  href={getAssetUrl(resumeUrl)}
+                  href={getAssetUrl(settings.resumeUrl)}
                   download="Fatheali_Landage_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -133,6 +135,20 @@ export default function Contact({ settings }) {
                     </p>
                   </div>
                 </motion.a>
+              ) : (
+                <div
+                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] opacity-50 cursor-not-allowed"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center text-slate-500 text-xl shrink-0">
+                    <FiDownload />
+                  </div>
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
+                    <p className="font-semibold text-sm text-slate-500 mt-0.5">
+                      Resume Unavailable
+                    </p>
+                  </div>
+                </div>
               )}
             </div>
           </motion.div>

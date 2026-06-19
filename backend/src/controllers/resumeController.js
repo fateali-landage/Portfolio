@@ -34,7 +34,7 @@ export const uploadResumeController = async (req, res, next) => {
 export const getResumeController = async (req, res, next) => {
   try {
     const settings = await Settings.findOne()
-    const resumeUrl = settings?.resumeUrl || '/uploads/resume.pdf'
+    const resumeUrl = settings?.resumeUrl || ''
     res.status(200).json({ resumeUrl })
   } catch (error) {
     next(error)

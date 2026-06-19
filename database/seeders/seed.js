@@ -204,7 +204,7 @@ const seedDB = async () => {
 
     // Create default settings (resumeUrl and default heroStats)
     await Settings.create({
-      resumeUrl: '/uploads/resume.pdf',
+      resumeUrl: '',
       heroStats: [
         { value: '8+', title: 'Projects', subtitle: 'React • MERN • Python', targetSection: 'Projects', order: 1 },
         { value: '10+', title: 'Certifications', subtitle: 'Cisco • HackerRank', targetSection: 'Certifications', order: 2 },

@@ -131,6 +131,7 @@ export default function Home() {
           <main>
             <Hero 
               settings={settings}
+              settingsLoaded={settings !== null}
               githubUrl={githubUrl}
               linkedinUrl={linkedinUrl}
             />
@@ -145,7 +146,7 @@ export default function Home() {
             <CurrentlyLearning settings={settings} />
             <GitHubStats githubUrl={githubUrl} />
             <AchievementsGoals settings={settings} />
-            <Contact settings={settings} />
+            <Contact settings={settings} settingsLoaded={settings !== null} />
           </main>
           
           <Footer />
