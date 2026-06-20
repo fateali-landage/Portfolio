@@ -15,7 +15,7 @@ const uploadService = {
   uploadResume: async (file) => {
     const formData = new FormData()
     formData.append('resume', file)
-    const response = await API.post('/resume', formData, {
+    const response = await API.post('/upload/resume', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

@@ -154,7 +154,7 @@ export default function Dashboard() {
       } else if (activeTab === 'skills') {
         const data = await skillService.getAll()
         setSkills(data.sort((a, b) => (a.order || 0) - (b.order || 0)))
-        const settingsData = await settingsService.getSettings()
+        const settingsData = await settingsService.getSettings(true)
         setSettings(settingsData)
       } else if (activeTab === 'certificates') {
         const data = await certificateService.getAll()
@@ -163,18 +163,18 @@ export default function Dashboard() {
         const data = await socialService.getAll()
         setSocials(data.sort((a, b) => (a.order || 0) - (b.order || 0)))
       } else if (activeTab === 'resume') {
-        const data = await settingsService.getSettings()
+        const data = await settingsService.getSettings(true)
         setResumeUrl(data.resumeUrl)
       } else if (activeTab === 'internships') {
         const data = await internshipService.getAll()
         setInternships(data.sort((a, b) => (a.order || 0) - (b.order || 0)))
-        const settingsData = await settingsService.getSettings()
+        const settingsData = await settingsService.getSettings(true)
         setSettings(settingsData)
       } else if (activeTab === 'timeline') {
         const data = await timelineService.getAll()
         setTimeline(data.sort((a, b) => (a.order || 0) - (b.order || 0)))
       } else if (['hero', 'herostats', 'education', 'cybersecurity', 'achievements', 'settings'].includes(activeTab)) {
-        const data = await settingsService.getSettings()
+        const data = await settingsService.getSettings(true)
         setSettings(data)
       }
     } catch (err) {
@@ -1570,7 +1570,7 @@ export default function Dashboard() {
                     <div className="mt-4 flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
                       {resumeUrl && (
                         <a 
-                          href={getAssetUrl(resumeUrl)}
+                          href={resumeUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full sm:w-auto px-6 py-3 border border-white/10 hover:border-white/20 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
@@ -1623,7 +1623,7 @@ export default function Dashboard() {
                       <label className="block text-xs font-mono text-slate-400 uppercase mb-2">Profile Image Preview / URL</label>
                       <div className="flex gap-3 items-center">
                         <img 
-                          src={getAssetUrl(settings.profileImage) || DEFAULT_AVATAR} 
+                          src={settings.profileImage || DEFAULT_AVATAR} 
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = DEFAULT_AVATAR;
@@ -1635,7 +1635,7 @@ export default function Dashboard() {
                           type="text" 
                           value={settings.profileImage} 
                           onChange={e => setSettings({...settings, profileImage: e.target.value})}
-                          placeholder="/uploads/photo.jpg"
+                          placeholder="No profile image uploaded"
                           className="flex-1 bg-[#111827] border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
                         />
                         <label className="px-4 py-3 bg-white/5 border border-white/10 text-slate-300 rounded-xl hover:text-white transition-all flex items-center justify-center gap-2 cursor-pointer text-xs font-mono shrink-0">

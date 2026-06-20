@@ -2,7 +2,7 @@ import { uploadToCloudinary, deleteFromCloudinary } from '../services/uploadServ
 import Settings from '../models/settingsModel.js'
 
 // @desc    Upload resume PDF to Cloudinary
-// @route   POST /api/resume
+// @route   POST /api/upload/resume
 // @access  Private/Admin
 export const uploadResumeController = async (req, res, next) => {
   try {
@@ -31,15 +31,4 @@ export const uploadResumeController = async (req, res, next) => {
   }
 }
 
-// @desc    Get active resume URL
-// @route   GET /api/resume
-// @access  Public
-export const getResumeController = async (req, res, next) => {
-  try {
-    const settings = await Settings.findOne()
-    const resumeUrl = settings?.resumeUrl || ''
-    res.status(200).json({ resumeUrl })
-  } catch (error) {
-    next(error)
-  }
-}
+

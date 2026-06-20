@@ -23,13 +23,41 @@ import settingsService from '../services/settingsService'
 import socialService from '../services/socialService'
 
 export default function Home() {
-  const [loading, setLoading] = useState(true)
+  const [settings, setSettings] = useState(() => {
+    try {
+      const cached = localStorage.getItem('portfolio_settings')
+      return cached ? JSON.parse(cached) : null
+    } catch {
+      return null
+    }
+  })
+
+  const [socials, setSocials] = useState(() => {
+    try {
+      const cached = localStorage.getItem('portfolio_socials')
+      return cached ? JSON.parse(cached) : []
+    } catch {
+      return []
+    }
+  })
+
+  const [loading, setLoading] = useState(() => {
+    try {
+      const cached = localStorage.getItem('portfolio_settings')
+      return !cached
+    } catch {
+      return true
+    }
+  })
   const [darkMode, setDarkMode] = useState(true)
-  
-  const [settings, setSettings] = useState(null)
-  const [socials, setSocials] = useState([])
 
   useEffect(() => {
+    // If we are not loading (i.e. cached data is present), we don't need a timeout
+    try {
+      const cached = localStorage.getItem('portfolio_settings')
+      if (cached) return
+    } catch {}
+
     const timer = setTimeout(() => setLoading(false), 2000)
     return () => clearTimeout(timer)
   }, [])
@@ -43,6 +71,11 @@ export default function Home() {
 
         const socialsData = await socialService.getAll()
         setSocials(socialsData)
+        try {
+          localStorage.setItem('portfolio_socials', JSON.stringify(socialsData))
+        } catch (e) {
+          console.error('Failed to cache socials:', e)
+        }
       } catch (err) {
         console.error('Failed to retrieve homepage asset configurations:', err)
       }

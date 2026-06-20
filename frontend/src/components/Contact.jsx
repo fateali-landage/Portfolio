@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FiMail, FiGithub, FiLinkedin, FiDownload, FiCheckCircle } from 'react-icons/fi'
 import socialService from '../services/socialService'
-import { getAssetUrl } from '../utils/url'
 
 const iconMap = {
   'github': FiGithub,
@@ -11,7 +10,6 @@ const iconMap = {
 }
 
 export default function Contact({ settings }) {
-  const resumeUrl = settings?.resumeUrl || '/resume.pdf'
   const contactTitle = settings?.contactTitle || "Let's Build Something Great Together"
   const contactDesc = settings?.contactDesc || 'Have an open role, project opportunity, or just want to connect? Send a message below!'
 
@@ -119,24 +117,53 @@ export default function Contact({ settings }) {
               })}
 
               {/* Resume download quicklink */}
-              <motion.a
-                href={getAssetUrl(resumeUrl)}
-                download="Fatheali_Landage_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 6, scale: 1.02 }}
-                className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-purple-500/20 transition-all duration-300 group cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-slate-400 group-hover:text-purple-400 group-hover:scale-110 transition-all text-xl shrink-0">
-                  <FiDownload />
+              {!settings ? (
+                <div
+                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] opacity-50 cursor-not-allowed animate-pulse w-full"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-slate-800/50 border border-white/5 flex items-center justify-center text-slate-500 text-xl shrink-0">
+                    <div className="w-5 h-5 border-2 border-slate-500 border-t-transparent rounded-full animate-spin" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] text-slate-600 uppercase font-mono">CV Document</p>
+                    <p className="font-semibold text-sm text-slate-500 mt-0.5">
+                      Loading Resume...
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
-                  <p className="font-semibold text-sm text-slate-200 group-hover:text-white transition-colors mt-0.5">
-                    Download PDF Resume
-                  </p>
+              ) : !settings.resumeUrl || settings.resumeUrl.trim() === '' ? (
+                <div
+                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] opacity-50 cursor-not-allowed w-full"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-slate-800/20 border border-white/5 flex items-center justify-center text-slate-500 text-xl shrink-0">
+                    <FiDownload />
+                  </div>
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] text-slate-600 uppercase font-mono">CV Document</p>
+                    <p className="font-semibold text-sm text-slate-500 mt-0.5">
+                      No Resume Available
+                    </p>
+                  </div>
                 </div>
-              </motion.a>
+              ) : (
+                <motion.a
+                  href={settings.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 6, scale: 1.02 }}
+                  className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-purple-500/20 transition-all duration-300 group cursor-pointer w-full"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-slate-400 group-hover:text-purple-400 group-hover:scale-110 transition-all text-xl shrink-0">
+                    <FiDownload />
+                  </div>
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-mono">CV Document</p>
+                    <p className="font-semibold text-sm text-slate-200 group-hover:text-white transition-colors mt-0.5">
+                      Download PDF Resume
+                    </p>
+                  </div>
+                </motion.a>
+              )}
             </div>
           </motion.div>
 

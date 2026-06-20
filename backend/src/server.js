@@ -18,7 +18,6 @@ import uploadRoutes from './routes/uploadRoutes.js'
 import timelineRoutes from './routes/timelineRoutes.js'
 import internshipRoutes from './routes/internshipRoutes.js'
 import settingsRoutes from './routes/settingsRoutes.js'
-import resumeRoutes from './routes/resumeRoutes.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -81,7 +80,6 @@ app.use('/api/upload', uploadRoutes)
 app.use('/api/timeline', timelineRoutes)
 app.use('/api/internships', internshipRoutes)
 app.use('/api/settings', settingsRoutes)
-app.use('/api/resume', resumeRoutes)
 
 // Error Handling Middlewares
 app.use(notFound)
