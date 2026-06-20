@@ -10,11 +10,24 @@ const settingsService = {
       try {
         const cached = localStorage.getItem(CACHE_KEY)
         const cachedTime = localStorage.getItem(CACHE_TIME_KEY)
-        if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < CACHE_TTL)) {
-          return JSON.parse(cached)
+        if (cached && cached !== 'null' && cached !== 'undefined' && cachedTime) {
+          const parsed = JSON.parse(cached)
+          if (parsed && typeof parsed === 'object') {
+            if (Date.now() - parseInt(cachedTime, 10) < CACHE_TTL) {
+              return parsed
+            }
+          } else {
+            localStorage.removeItem(CACHE_KEY)
+            localStorage.removeItem(CACHE_TIME_KEY)
+          }
+        } else {
+          localStorage.removeItem(CACHE_KEY)
+          localStorage.removeItem(CACHE_TIME_KEY)
         }
       } catch (err) {
         console.error('Error reading settings cache:', err)
+        localStorage.removeItem(CACHE_KEY)
+        localStorage.removeItem(CACHE_TIME_KEY)
       }
     }
 

@@ -6,6 +6,11 @@ import { FiGithub, FiLinkedin, FiDownload, FiMail } from 'react-icons/fi'
 const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='100%' height='100%' fill='%23111827'/><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' fill='%23a855f7'/></svg>"
 
 export default function Hero({ settings, githubUrl, linkedinUrl }) {
+  console.log('settings', settings)
+  console.log('loading', !settings)
+  console.log('resumeUrl', settings?.resumeUrl)
+  console.log('profileImage', settings?.profileImage)
+
   const ownerName = settings?.ownerName || 'Fatheali Landage'
   const headline = settings?.headline || 'Frontend Developer | Python Learner | AI & Cybersecurity Enthusiast'
   const description = settings?.description || 'BCA student graduating in 2026 with practical experience in web development, internships, React applications, Python programming, and emerging technologies.'

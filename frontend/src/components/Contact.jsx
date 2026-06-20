@@ -10,6 +10,11 @@ const iconMap = {
 }
 
 export default function Contact({ settings }) {
+  console.log('settings', settings)
+  console.log('loading', !settings)
+  console.log('resumeUrl', settings?.resumeUrl)
+  console.log('profileImage', settings?.profileImage)
+
   const contactTitle = settings?.contactTitle || "Let's Build Something Great Together"
   const contactDesc = settings?.contactDesc || 'Have an open role, project opportunity, or just want to connect? Send a message below!'
 

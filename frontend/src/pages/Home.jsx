@@ -26,7 +26,13 @@ export default function Home() {
   const [settings, setSettings] = useState(() => {
     try {
       const cached = localStorage.getItem('portfolio_settings')
-      return cached ? JSON.parse(cached) : null
+      if (cached && cached !== 'null' && cached !== 'undefined') {
+        const parsed = JSON.parse(cached)
+        if (parsed && typeof parsed === 'object') {
+          return parsed
+        }
+      }
+      return null
     } catch {
       return null
     }
@@ -35,7 +41,13 @@ export default function Home() {
   const [socials, setSocials] = useState(() => {
     try {
       const cached = localStorage.getItem('portfolio_socials')
-      return cached ? JSON.parse(cached) : []
+      if (cached && cached !== 'null' && cached !== 'undefined') {
+        const parsed = JSON.parse(cached)
+        if (Array.isArray(parsed)) {
+          return parsed
+        }
+      }
+      return []
     } catch {
       return []
     }
@@ -44,7 +56,13 @@ export default function Home() {
   const [loading, setLoading] = useState(() => {
     try {
       const cached = localStorage.getItem('portfolio_settings')
-      return !cached
+      if (cached && cached !== 'null' && cached !== 'undefined') {
+        const parsed = JSON.parse(cached)
+        if (parsed && typeof parsed === 'object') {
+          return false
+        }
+      }
+      return true
     } catch {
       return true
     }
@@ -55,7 +73,12 @@ export default function Home() {
     // If we are not loading (i.e. cached data is present), we don't need a timeout
     try {
       const cached = localStorage.getItem('portfolio_settings')
-      if (cached) return
+      if (cached && cached !== 'null' && cached !== 'undefined') {
+        const parsed = JSON.parse(cached)
+        if (parsed && typeof parsed === 'object') {
+          return
+        }
+      }
     } catch {}
 
     const timer = setTimeout(() => setLoading(false), 2000)
@@ -68,6 +91,7 @@ export default function Home() {
         const settingsData = await settingsService.getSettings()
         console.log("Settings API response:", settingsData)
         setSettings(settingsData)
+        setLoading(false)
 
         const socialsData = await socialService.getAll()
         setSocials(socialsData)
@@ -78,6 +102,7 @@ export default function Home() {
         }
       } catch (err) {
         console.error('Failed to retrieve homepage asset configurations:', err)
+        setLoading(false)
       }
     }
     fetchHomeSettings()
@@ -151,6 +176,11 @@ export default function Home() {
 
   const githubUrl = socials.find(s => s.platform.toLowerCase() === 'github')?.url || ''
   const linkedinUrl = socials.find(s => s.platform.toLowerCase() === 'linkedin')?.url || ''
+
+  console.log('settings', settings)
+  console.log('loading', loading)
+  console.log('resumeUrl', settings?.resumeUrl)
+  console.log('profileImage', settings?.profileImage)
 
   return (
     <div className={darkMode ? 'dark' : ''}>
