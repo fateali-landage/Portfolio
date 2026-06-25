@@ -25,6 +25,26 @@ const __dirname = path.dirname(__filename)
 // Load Environment Variables
 dotenv.config()
 
+// Startup environment validation
+const requiredEnvVars = [
+  'MONGO_URI',
+  'JWT_SECRET',
+  'CLOUDINARY_CLOUD_NAME',
+  'CLOUDINARY_API_KEY',
+  'CLOUDINARY_API_SECRET'
+]
+
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar])
+
+if (missingEnvVars.length > 0) {
+  console.error('\n======================================================')
+  console.error('FATAL ERROR: Missing required startup environment variables:')
+  missingEnvVars.forEach(envVar => console.error(`  - ${envVar}`))
+  console.error('Please configure these in your environment / .env file.')
+  console.error('======================================================\n')
+  process.exit(1)
+}
+
 // Connect to database
 connectDB()
 

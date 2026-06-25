@@ -204,7 +204,7 @@ export default function Contact({ settings }) {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="fathealilandage@gmail.com"
+                placeholder="your.email@example.com"
                 required
                 className="w-full bg-white/4 border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-purple-500/60 transition-all text-sm"
               />

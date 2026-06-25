@@ -117,8 +117,8 @@ const defaultSocials = [
   },
   {
     platform: 'Email',
-    url: 'mailto:fatealilandage@gmail.com',
-    value: 'fatealilandage@gmail.com'
+    url: 'mailto:your.email@example.com',
+    value: 'your.email@example.com'
   }
 ]
 
@@ -162,6 +162,33 @@ const defaultCertificates = [
 ]
 
 const seedDB = async () => {
+  const adminEmail = process.env.ADMIN_EMAIL
+  const adminPassword = process.env.ADMIN_PASSWORD
+
+  const missing = []
+  if (!adminEmail) missing.push('ADMIN_EMAIL')
+  if (!adminPassword) missing.push('ADMIN_PASSWORD')
+
+  if (missing.length > 0) {
+    console.error('\nMissing required environment variables:\n')
+    missing.forEach(v => console.error(v))
+    console.error('\nStopping execution.\n')
+    process.exit(1)
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(adminEmail)) {
+    console.error('\nValidation Error: ADMIN_EMAIL is not a valid email address.\nStopping execution.\n')
+    process.exit(1)
+  }
+
+  // Password length validation
+  if (adminPassword.length < 8) {
+    console.error('\nValidation Error: ADMIN_PASSWORD must be at least 8 characters long.\nStopping execution.\n')
+    process.exit(1)
+  }
+
   try {
     const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/portfolio'
     console.log(`Connecting to database for seeding: ${mongoUri}`)
@@ -179,15 +206,13 @@ const seedDB = async () => {
     console.log('Cleared existing database entries.')
 
     // Create Admin User
-    const adminEmail = process.env.ADMIN_EMAIL || 'fatealilandage@gmail.com'
-    const adminPassword = process.env.ADMIN_PASSWORD || 'F9@Fateali9886'
-    
     await User.create({
       email: adminEmail,
       password: adminPassword,
       role: 'admin'
     })
     console.log(`Admin user created with email: ${adminEmail}`)
+
 
     // Create default items
     await Project.insertMany(defaultProjects)

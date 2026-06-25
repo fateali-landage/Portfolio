@@ -108,7 +108,7 @@ const settingsSchema = new mongoose.Schema({
   // Contact Section
   contactEmail: {
     type: String,
-    default: 'fathealilandage@gmail.com'
+    default: 'your.email@example.com'
   },
   contactTitle: {
     type: String,
