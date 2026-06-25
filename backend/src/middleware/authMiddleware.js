@@ -16,7 +16,7 @@ export const protectAdmin = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
       // Get user from the token, verify they are admin
-      req.user = await User.findById(decoded.id).select('-password')
+      req.user = await User.findById(decoded.id)
 
       if (!req.user) {
         return res.status(401).json({ message: 'Not authorized, user not found' })
@@ -25,6 +25,15 @@ export const protectAdmin = async (req, res, next) => {
       if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Access denied, administrator role required' })
       }
+
+      // Validate token fingerprint (revocation check)
+      const currentFingerprint = req.user.password.slice(-10)
+      if (!decoded.fp || decoded.fp !== currentFingerprint) {
+        return res.status(401).json({ message: 'Not authorized, session expired' })
+      }
+
+      // Strip password hash from request user to avoid downstream leakage
+      req.user.password = undefined
 
       return next()
     } catch (error) {

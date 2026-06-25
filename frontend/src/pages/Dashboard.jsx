@@ -11,6 +11,7 @@ import settingsService from '../services/settingsService'
 import timelineService from '../services/timelineService'
 import internshipService from '../services/internshipService'
 import { getAssetUrl } from '../utils/url'
+import ChangePassword from '../components/ChangePassword'
 
 const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='100%' height='100%' fill='%23111827'/><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' fill='%23a855f7'/></svg>"
 import { 
@@ -18,7 +19,7 @@ import {
   FiEdit2, FiTrash2, FiExternalLink, FiCheck, FiX, FiAlertCircle,
   FiFileText, FiUploadCloud, FiSearch, FiSliders, FiBriefcase, 
   FiClock, FiUser, FiBookOpen, FiShield, FiTrendingUp, FiArrowUp, FiArrowDown,
-  FiActivity
+  FiActivity, FiLock, FiEye, FiEyeOff
 } from 'react-icons/fi'
 
 export default function Dashboard() {
@@ -819,7 +820,7 @@ export default function Dashboard() {
   }
 
   const filteredItems = getFilteredItems()
-  const isDirectSettingsTab = ['hero', 'herostats', 'education', 'cybersecurity', 'achievements', 'settings'].includes(activeTab)
+  const isDirectSettingsTab = ['hero', 'herostats', 'education', 'cybersecurity', 'achievements', 'settings', 'security'].includes(activeTab)
 
   return (
     <div className="min-h-screen bg-[#020005] text-white font-sans flex flex-col relative overflow-hidden">
@@ -892,7 +893,8 @@ export default function Dashboard() {
             { id: 'education', label: 'Education Details', icon: FiBookOpen, color: '#a855f7' },
             { id: 'cybersecurity', label: 'Cybersecurity Panel', icon: FiShield, color: '#06b6d4' },
             { id: 'achievements', label: 'Achievements List', icon: FiTrendingUp, color: '#a855f7' },
-            { id: 'settings', label: 'SEO & Visual Themes', icon: FiSliders, color: '#06b6d4' }
+            { id: 'settings', label: 'SEO & Visual Themes', icon: FiSliders, color: '#06b6d4' },
+            { id: 'security', label: 'Security Options', icon: FiLock, color: '#ef4444' }
           ].map(tab => {
             const Icon = tab.icon
             const active = activeTab === tab.id
@@ -1028,17 +1030,22 @@ export default function Dashboard() {
                    activeTab === 'education' ? 'Academic Program' : 
                    activeTab === 'cybersecurity' ? 'Cybersecurity Operations' : 
                    activeTab === 'achievements' ? 'Achievements List' : 
+                   activeTab === 'security' ? 'System Security' :
                    'SEO & Colors Setup'}
                 </h2>
-                <p className="text-xs text-slate-500 font-mono mt-1 uppercase">Configure global section variables</p>
+                <p className="text-xs text-slate-500 font-mono mt-1 uppercase">
+                  {activeTab === 'security' ? 'Configure system credentials' : 'Configure global section variables'}
+                </p>
               </div>
-              <button
-                onClick={handleSaveSettings}
-                disabled={actionLoading || uploadLoading}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-cyan-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all cursor-pointer disabled:opacity-50"
-              >
-                <FiCheck /> {actionLoading ? 'Saving...' : 'Save Settings'}
-              </button>
+              {activeTab !== 'security' && (
+                <button
+                  onClick={handleSaveSettings}
+                  disabled={actionLoading || uploadLoading}
+                  className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-cyan-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all cursor-pointer disabled:opacity-50"
+                >
+                  <FiCheck /> {actionLoading ? 'Saving...' : 'Save Settings'}
+                </button>
+              )}
             </div>
           )}
 
@@ -2429,6 +2436,14 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </form>
+                )}
+
+                {activeTab === 'security' && (
+                  <ChangePassword 
+                    logout={handleLogout} 
+                    setSuccess={setSuccess} 
+                    setError={setError} 
+                  />
                 )}
               </>
             )}

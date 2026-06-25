@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 🚀 Fatheali Landage Portfolio CMS
 
 A modern full-stack portfolio platform with a secure admin dashboard, dynamic content management, Cloudinary media storage, and MongoDB-powered backend.
@@ -332,5 +331,5 @@ The frontend application runs on `http://localhost:5173` (or `http://localhost:3
 - **Git Safety**: The `.gitignore` configuration explicitly excludes all `.env` files and environment variants from version tracking.
 - **Validation-First Seeding**: The seeding scripts perform strict format validation for the admin email and a length check for the admin password, preventing account creation with weak or missing parameters.
 - **Independent Contact Email**: Public contact email (`settings.contactEmail`) is stored in the database and manageable through the CMS Dashboard, keeping it separate from the administrative account (`ADMIN_EMAIL`).
->>>>>>> faebbbc (Refactor secret management and harden application security)
+faebbbc (Refactor secret management and harden application security)
 
